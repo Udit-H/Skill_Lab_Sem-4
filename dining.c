@@ -18,8 +18,8 @@ void* philosopher(void* num)
     printf("Philosopher %d is eating\n", id);
     sleep(2);
 
-    pthread_mutex_unlock(&chopstick(id));
-    pthread_mutex_unlock(&chopstick(id+1)%N);
+    pthread_mutex_unlock(&chopstick[id]);
+    pthread_mutex_unlock(&chopstick[id+1]%N);
 
     printf("Philosopher %d finished eaating\n", id);
 
@@ -31,7 +31,7 @@ int main()
     pthread_t ph[N];
     int i, id[N];
 
-    for(int i=0;i<N;i++)
+    for(i=0;i<N;i++)
     pthread_mutex_init(&chopstick[i], NULL);
 
     for(i=0;i<N;i++)
@@ -39,5 +39,12 @@ int main()
         id[i] = i;
         pthread_create(&ph[i], NULL, philosopher, &id[i]);
     }
-    
+
+    for(i=0;i<N;i++)
+    pthread_join(ph[i], NULL); 
+
+    for(i=0;i<N;i++)
+    pthread_mutex_destroy(&chopstick[i]);
+
+    return 0;
 }
