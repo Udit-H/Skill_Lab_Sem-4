@@ -7,11 +7,11 @@ int main()
 {
 
     int fd;
-    struct flock loc;
+    struct flock lock;
 
     fd = open("testfile.txt", O_WRONLY | O_CREAT, 0644);
 
-    lock.l_type = F_WRLOCK;
+    lock.l_type = F_WRLCK;
     lock.l_whence = SEEK_SET;
     lock.l_start = 0;
     lock.l_len = 0;
@@ -20,7 +20,7 @@ int main()
 
     fcntl(fd, F_SETLKW, &lock);
 
-    printf(fd, "Writing with file lock\n", 23);
+    write(fd, "Writing with file lock\n", 23);
     sleep(10);
 
     lock.l_type = F_UNLCK;
