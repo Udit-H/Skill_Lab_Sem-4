@@ -21,7 +21,7 @@ void* philosopher(void* num)
     pthread_mutex_unlock(&chopstick[id]);
     pthread_mutex_unlock(&chopstick[(id+1)%N]);
 
-    printf("Philosopher %d finished eaating\n", id);
+    printf("Philosopher %d finished eating\n", id);
 
     return NULL;
 }
