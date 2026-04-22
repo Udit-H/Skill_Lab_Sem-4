@@ -12,14 +12,14 @@ void* philosopher(void* num)
     printf("philosopher %d is thinking\n", id);
     sleep(1);
 
-    pthread_mutex_lock(&chopstick(id));
-    pthread_mutex_lock(&chopstick(id+1)%N);
+    pthread_mutex_lock(&chopstick[id]);
+    pthread_mutex_lock(&chopstick[(id+1)%N]);
 
     printf("Philosopher %d is eating\n", id);
     sleep(2);
 
     pthread_mutex_unlock(&chopstick[id]);
-    pthread_mutex_unlock(&chopstick[id+1]%N);
+    pthread_mutex_unlock(&chopstick[(id+1)%N]);
 
     printf("Philosopher %d finished eaating\n", id);
 
